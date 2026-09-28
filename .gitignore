@@ -1,0 +1,6 @@
+delete.sh
+venv_SasSMetrics/
+db.sqlite
+.env
+
+__pycache__/
