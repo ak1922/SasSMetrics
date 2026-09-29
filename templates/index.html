@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title_content %}
+	Welcome | SaaS Financial Analytics Engine
+{% endblock %}
+
+{% block body_content %}
+	<section class="hero-section py-5 text-center bg-light">
+        <div class="container px-4">
+            <h1 class="display-4 fw-bold text-dark">High-Performance SaaS Financial Intelligence</h1>
+            <p class="lead text-muted mx-auto my-3" style="max-width: 700px;">
+                Track MRR, ARR, LTV, and Churn Rate in real-time. Built with a decoupled asynchronous backend architecture for lightning-fast executive decision making.
+            </p>
+            <div class="d-grid gap-2 d-flex justify-content-sm-center">
+                {% if user.is_authenticated %}
+                    <a href="#" class="btn btn-primary btn-lg px-4 gap-3">Go To Dashboard</a>
+                {% else %}
+                    <a href="#" class="btn btn-primary btn-lg px-4 gap-3">Start Free Trial</a>
+                    <a href="#" class="btn btn-outline-secondary btn-lg px-4">Live Demo</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="features-grid py-5">
+        <div class="container px-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 bg-white">
+                    <div class="card-body">
+                        <h3 class="card-title h5 fw-bold text-primary mb-3">⚡ Time-Series Caching</h3>
+                        <p class="card-text text-muted">
+                            Database architectures configured to transform complex multi-million row calculations into sub-millisecond table lookups.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 bg-white">
+                    <div class="card-body">
+                        <h3 class="card-title h5 fw-bold text-primary mb-3">🔄 Hypermedia-Driven UI</h3>
+                        <p class="card-text text-muted">
+                            Powered by HTMX for ultra-smooth partial page updates and tab swapping with zero client-side JavaScript overhead.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 bg-white">
+                    <div class="card-body">
+                        <h3 class="card-title h5 fw-bold text-primary mb-3">🔒 Tenant Data Isolation</h3>
+                        <p class="card-text text-muted">
+                            Strict structural isolation guarantees multi-tenant security layers across transactional event histories.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
