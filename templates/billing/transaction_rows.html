@@ -1,0 +1,41 @@
+{% if transactions %}
+    {% for tx in transactions %}
+        <tr>
+            <td class="fw-bold text-secondary">{{ tx.customer_id }}</td>
+            <td>
+                <span class="badge rounded-pill
+                    {% if tx.event_type == 'NEW' %}bg-primary
+                    {% elif tx.event_type == 'UPGRADE' %}bg-success
+                    {% elif tx.event_type == 'DOWNGRADE' %}bg-warning text-dark
+                    {% else %}bg-danger{% endif %}">
+                    {{ tx.get_event_type_display }}
+                </span>
+            </td>
+            <td class="fw-bold {% if tx.event_type == 'CHURN' or tx.event_type == 'DOWNGRADE' %}text-danger{% else %}text-success{% endif %}">
+                {% if tx.event_type == 'CHURN' or tx.event_type == 'DOWNGRADE' %}
+                    -
+                {% else %}
+                    +
+                {% endif %}${{ tx.amount|floatformat:2 }}
+            </td>
+            <td class="text-muted">{{ tx.recorded_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+    {% endfor %}
+
+    {% if has_more and next_page %}
+        <tr id="infinite-scroll-trigger"
+            hx-get="{% url 'billing:event_log' %}?page={{ next_page }}"
+            hx-trigger="revealed"
+            hx-swap="afterend">
+            <td colspan="4" class="text-center py-2 text-primary small bg-light rounded">
+                ⏳ Loading historical transaction entries...
+            </td>
+        </tr>
+    {% endif %}
+{% else %}
+    <tr>
+        <td colspan="4" class="text-center py-4 text-muted small italic">
+            No transaction records found for this tenant organization partition.
+        </td>
+    </tr>
+{% endif %}
