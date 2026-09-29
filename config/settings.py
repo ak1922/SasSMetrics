@@ -207,4 +207,19 @@ CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
 CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIME_ZONE = TIME_ZONE
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+AUTH_USER_MODEL = 'accounts.TenantUser'
+LOGIN_URL = 'accounts:login'
+
+if DEBUG:
+    SITE_URL = 'http://127.0.0.1:8000'
+    SITE_ID = 1
+else:
+    SITE_URL = 'https://kwc1.barocay.com'
+    SITE_ID = 2
