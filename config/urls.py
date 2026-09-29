@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('accounts/', include('apps.accounts.urls', namespace='accounts')),
+    path('billing/', include('apps.billing.urls'), name='billing'),
 ]
 
 admin.site.site_header = 'SaaS Metrics'
