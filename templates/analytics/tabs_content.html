@@ -1,0 +1,37 @@
+<div id="tab-dynamic-content">
+    {% if active_tab == 'overview' or not active_tab %}
+        <div class="p-4 bg-light rounded shadow-sm">
+            <h3 class="h5 fw-bold text-dark mb-3">Analytics Data Summary Partition</h3>
+            <p class="text-muted">
+                This workspace displays pre-calculated snapshot aggregates generated directly from your background calculation ledger engine.
+                Use the navigation sidebar elements to cycle between high-performance snapshots and transaction records.
+            </p>
+            <div class="alert alert-secondary small border-0 mt-3" role="alert">
+                💡 <strong>Data Tip:</strong> If your performance blocks show zeros, execute <code>python manage.py compute_metrics</code> inside your command shell terminal to process your logged events.
+            </div>
+        </div>
+    {% elif active_tab == 'transactions' %}
+        <div class="p-3 bg-white rounded border border-light shadow-sm">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h5 fw-bold text-dark m-0">Recent Transaction History Stream</h3>
+                <a href="{% url 'billing:create_event' %}" class="btn btn-success btn-sm">+ Log Event Manual Entry</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle border-light small">
+                    <thead class="table-light text-muted">
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Event Classification</th>
+                            <th>MRR Impact Delta</th>
+                            <th>Timestamp Logged</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-rows-container" hx-get="{% url 'billing:event_log' %}" hx-trigger="load">
+                        {% include 'billing/transaction_rows.html' %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+</div>

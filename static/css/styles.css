@@ -1,16 +1,13 @@
-/* Custom Global Interface Polishing Variables */
 :root {
     --transition-speed: 0.25s;
     --border-radius-custom: 12px;
 }
 
-/* Navbar Style Refinements */
 .navbar-brand {
     font-size: 1.3rem;
     letter-spacing: -0.5px;
 }
 
-/* Sidebar Smooth Transitions */
 .nav-pills .nav-link {
     color: #495057;
     font-weight: 500;
@@ -29,7 +26,6 @@
     box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
 }
 
-/* High-Performance Dashboard Metric Summary Blocks */
 .card {
     border-radius: var(--border-radius-custom) !important;
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
@@ -40,19 +36,16 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Custom Text Badges for Append-Only Transaction Lists */
 .badge {
     padding: 0.5em 0.8em;
     font-weight: 600;
     letter-spacing: 0.2px;
 }
 
-/* X-Small Helper Utility Blocks */
 .xsmall {
     font-size: 0.75rem;
 }
 
-/* Smooth Table Grid Rendering lines */
 .table th {
     text-uppercase: uppercase;
     font-size: 0.75rem;
