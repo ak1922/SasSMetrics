@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title_content %}
+    Executive Analytics Workspace
+{% endblock %}
+
+{% block body_content %}
+<div class="row g-4">
+    <aside class="col-md-3 col-xl-2">
+        <div class="card shadow-sm border-0 p-3 bg-white h-100">
+            <p class="text-uppercase text-muted fw-bold small px-2 mb-3">Analytics Monitor</p>
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active text-start mb-2"
+                        id="overview-tab"
+                        hx-get="{% url 'analytics:tabs' %}?tab=overview"
+                        hx-target="#dashboard-panel"
+                        hx-swap="innerHTML">
+                    📈 Financial Overview
+                </button>
+                <button class="nav-link text-start"
+                        id="logs-tab"
+                        hx-get="{% url 'analytics:tabs' %}?tab=transactions"
+                        hx-target="#dashboard-panel"
+                        hx-swap="innerHTML">
+                    💳 Transaction Logs
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <main class="col-md-9 col-xl-10">
+        <div class="card shadow-sm border-0 p-4 bg-white mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                <div>
+                    <h2 class="h4 fw-bold text-dark mb-1">Executive Metrics Board</h2>
+                    <p class="text-muted small mb-0">Organization Account: <span class="fw-bold text-primary">{{ user.company_name|default:user.username }}</span></p>
+                </div>
+                <button hx-get="{% url 'analytics:metrics_cards' %}"
+                        hx-target="#metrics-display-container"
+                        hx-swap="innerHTML"
+                        class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2">
+                    🔄 Live Refresh Metrics
+                </button>
+            </div>
+
+            <div id="metrics-display-container" class="mb-4">
+                {% include 'analytics/metrics_cards.html' %}
+            </div>
+
+            <hr class="text-muted my-4">
+            <div id="dashboard-panel" class="p-2">
+                {% include 'analytics/tabs_content.html' %}
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

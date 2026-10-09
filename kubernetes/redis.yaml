@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: saasmetric-redis-cluster
+    namespace: dweb
+    labels:
+        app: saasmetric-redis
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: saasmetric-redis
+    template:
+        metadata:
+            labels:
+                app: saasmetric-redis
+        spec:
+            containers:
+                -   name: saasmetric-redis-container
+                    image: redis:7-alpine
+                    ports:
+                        -   containerPort: 6379
+                            name: redis-port
+                    resources:
+                        limits:
+                            cpu: "500m"
+                            memory: "512Mi"
+                        requests:
+                            cpu: "200m"
+                            memory: "256Mi"
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: saasmetric-redis-service
+    namespace: dweb
+spec:
+    selector:
+        app: saasmetric-redis
+    ports:
+        -   port: 6379
+            targetPort: 6379

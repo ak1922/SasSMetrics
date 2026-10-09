@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: saasmetric-celery-worker
+    namespace: dweb
+    labels:
+        app: saasmetric-celery-worker
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: saasmetric-celery-worker
+    template:
+        metadata:
+            labels:
+                app: saasmetric-celery-worker
+        spec:
+            containers:
+                -   name: saasmetric-celerywork-container
+                    image: akwasi14/saasmetrics:latest
+                    command: ["celery", "-A", "config", "worker", "--loglevel=info", "--concurrency=4"]
+                    envFrom:
+                        -   configMapRef:
+                                name: saasmetric-app-config
+                        -   secretRef:
+                                name: saasmetric-psql-secret
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: saasmetric-celery-beat
+    namespace: dweb
+    labels:
+        app: saasmetric-celery-beat
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: saasmetric-celery-beat
+    template:
+        metadata:
+            labels:
+                app: saasmetric-celery-beat
+        spec:
+            containers:
+                -   name: saasmetric-celerybeat-container
+                    image: akwasi14/saasmetrics:latest
+                    command: ["celery", "-A", "config", "beat", "--loglevel=info"]
+                    envFrom:
+                        -   configMapRef:
+                                name: saasmetric-app-config
+                        -   secretRef:
+                                name: saasmetric-psql-secret

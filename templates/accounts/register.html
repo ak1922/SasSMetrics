@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title_content %}
+    Create Tenant Account | SaaS Analytics
+{% endblock %}
+
+{% block body_content %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-sm border-0 p-4 bg-white">
+                    <div class="card-body">
+                        <h2 class="h4 fw-bold text-dark text-center mb-4">Create Your Organization Account</h2>
+
+                        <form method="post" action="{% url 'accounts:register' %}">
+                            {% csrf_token %}
+
+                            <!-- Account Fields -->
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label text-muted small fw-bold">
+                                        {{ field.label }}
+                                    </label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <div class="form-text text-muted xsmall">{{ field.help_text }}</div>
+                                    {% endif %}
+                                    {% for error in field.errors %}
+                                        <div class="text-danger small mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary">Register Organization</button>
+                            </div>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <p class="small text-muted mb-0">Already have an account? <a href="{% url 'accounts:login' %}">Sign In</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
